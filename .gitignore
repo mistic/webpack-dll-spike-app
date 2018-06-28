@@ -1,0 +1,16 @@
+# IDE
+.idea/
+
+# Project Build
+build/
+
+# Webpack
+webpack-assets.json
+webpack-stats.json
+
+# Npm related
+npm-debug.log*
+node_modules/
+
+# Operating System
+*.DS_Store
