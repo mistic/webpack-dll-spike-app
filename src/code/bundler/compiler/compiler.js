@@ -28,6 +28,9 @@ function preBuildCommon() {
         filename: '[name].js'
       }
     },
+    parts.ignoreFiles([
+      /scss\.d\.ts$/
+    ]),
     parts.lintTSX(PATHS.code),
     parts.lintCSS(),
     parts.setAlias({
@@ -44,6 +47,9 @@ function unoptimizedBuild() {
     {
       entry: {
         app: ['react-hot-loader/patch', PATHS.code]
+      },
+      output: {
+        devtoolModuleFilenameTemplate: 'webpack:///[absolute-resource-path]',
       },
       mode: 'development',
       devtool: 'eval-source-map'

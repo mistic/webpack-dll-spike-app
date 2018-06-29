@@ -30,7 +30,8 @@ exports.devServer = function (options) {
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin({
-        multiStep: true
+        // TODO: this should be activated when html-webpack-plugin fixs the bug related to it
+        multiStep: false
       })
     ]
   };
@@ -55,7 +56,14 @@ exports.extractCSS = function (paths) {
           test: /\.(sa|sc|c)ss$/,
           use: [
             MiniCssExtractPlugin.loader,
-            'css-loader',
+            {
+              loader: 'typings-for-css-modules-loader',
+              options: {
+                modules: true,
+                namedExport: true,
+                localIdentName: '[folder]__[local]___[hash:base64:5]'
+              }
+            },
             'sass-loader',
           ],
           include: paths
@@ -80,6 +88,15 @@ exports.indexTemplate = function (options) {
         ...options,
         template: options.template || require('html-webpack-template')
       })
+    ]
+  };
+};
+
+exports.ignoreFiles = function (files) {
+
+  return {
+    plugins: [
+      new webpack.WatchIgnorePlugin(files)
     ]
   };
 };
@@ -115,9 +132,10 @@ exports.loadCSS = ({include, exclude, path} = {}) => ({
         use: [
           'style-loader',
           {
-            loader: 'css-loader',
+            loader: 'typings-for-css-modules-loader',
             options: {
               modules: true,
+              namedExport: true,
               localIdentName: '[folder]__[local]___[hash:base64:5]'
             }
           },

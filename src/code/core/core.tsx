@@ -1,6 +1,6 @@
 import * as React from "react";
-import "styles/core.scss";
 import { Printer } from "code/sdk";
+import * as coreStyle from "styles/core/core.scss";
 
 const reactLogo = require("assets/images/react_logo.svg");
 
@@ -11,7 +11,7 @@ export class Core extends React.Component {
 
   render() {
     return (
-      <div id="core">
+      <div className={coreStyle.core}>
         <h1>Hello!</h1>
         <p>I am the a react core component.</p>
         <img src={reactLogo} height="600"/>
