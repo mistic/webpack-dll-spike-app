@@ -14,15 +14,15 @@
     "url": "git+https://github.com/mistic/webpack-dll-spike-app.git"
   },
   "scripts": {
-    "compile": "npm run clean && webpack -p --config=src/code/bundler/compiler",
-    "compile:build": "npm run clean && webpack -p --config=src/code/bundler/compiler",
+    "compile": "npm run clean && webpack --config=src/code/bundler --env.bundler.mode=development --env.bundler.type=compiler",
+    "compile:prod": "npm run clean && webpack --config=src/code/bundler --env.bundler.mode=production --env.bundler.type=compiler",
     "clean": "rm -f -r -d build",
     "lint": "npm run lint:ts && npm run lint:sass",
     "lint:ts": "tslint './src/**/*.ts*' --format stylish --force",
     "lint:sass": "stylelint ./src/**/*.scss",
     "start": "npm run start-dev",
-    "start:dev": "webpack-dev-server --config=src/code/bundler/compiler",
-    "start:prod": "npm run compile:build && node express.js"
+    "start:dev": "webpack-dev-server --config=src/code/bundler --env.bundler.mode=development --env.bundler.type=compiler",
+    "start:prod": "npm run compile:prod && node express.js"
   },
   "devDependencies": {
     "@types/node": "^10.5.0",

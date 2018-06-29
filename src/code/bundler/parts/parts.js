@@ -205,14 +205,17 @@ exports.devServer = function (options) {
   return ret;
 };
 
-exports.setFreeVariable = function (key, value) {
+exports.setFreeVariables = (variables) => {
   const env = {};
-  env[key] = JSON.stringify(value);
+
+  variables.forEach((variable) => {
+    env[variable[0]] = JSON.stringify(variable[1]);
+  });
 
   return {
     plugins: [
-      new webpack.DefinePlugin(env)
-    ]
+      new webpack.DefinePlugin(env),
+    ],
   };
 };
 
