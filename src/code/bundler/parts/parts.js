@@ -8,7 +8,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
 
-exports.loadImages = ({ include, exclude, options } = {}) => ({
+exports.loadImages = ({include, exclude, options} = {}) => ({
   module: {
     rules: [
       {
@@ -46,7 +46,7 @@ exports.loadImages = ({ include, exclude, options } = {}) => ({
   },
 });
 
-exports.minifyCSS = ({ options }) => ({
+exports.minifyCSS = ({options}) => ({
   plugins: [
     new OptimizeCSSAssetsPlugin({
       cssProcessor: cssnano,
@@ -87,7 +87,7 @@ exports.lintCSS = () => ({
   ],
 });
 
-exports.loadCSS = ({ include, exclude, path } = {}) => ({
+exports.loadCSS = ({include, exclude, path} = {}) => ({
   module: {
     rules: [
       {

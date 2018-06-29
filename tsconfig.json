@@ -5,10 +5,16 @@
     "module": "commonjs",
     "target": "es5",
     "jsx": "react",
-    "lib": ["es5", "es6", "dom"],
+    "lib": [
+      "es5",
+      "es6",
+      "dom"
+    ],
     "baseUrl": ".",
     "paths": {
-      "code/*": ["./src/code/*"]
+      "code/*": [
+        "./src/code/*"
+      ]
     }
   },
   "include": [
