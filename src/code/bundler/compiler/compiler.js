@@ -77,12 +77,6 @@ function optimizedBuild() {
         chunkFilename: '[chunkhash].js'
       }
     },
-    parts.applyOptimization({
-      minimize: true,
-      namedModules: false,
-      noEmitOnErrors: true,
-      concatenateModules: true
-    }),
     parts.clean(PATHS.build),
     parts.loadImages({
       include: PATHS.assets,
