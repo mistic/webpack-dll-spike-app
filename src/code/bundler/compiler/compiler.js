@@ -36,12 +36,6 @@ function preBuildCommon() {
       assets: path.resolve(PATHS.assets)
     }),
     parts.loadTSX(PATHS.code),
-    parts.loadImages({
-      include: PATHS.assets,
-      options: {
-        name: 'assets/[folder]/[name].[hash:8].[ext]'
-      }
-    })
   );
 }
 
@@ -54,6 +48,12 @@ function unoptimizedBuild() {
       mode: 'development',
       devtool: 'eval-source-map'
     },
+    parts.loadImages({
+      include: PATHS.assets,
+      options: {
+        name: `assets/[folder]/[name].[ext]`
+      }
+    }),
     parts.loadCSS({
       path: PATHS.src
     }),
@@ -84,6 +84,12 @@ function optimizedBuild() {
       concatenateModules: true
     }),
     parts.clean(PATHS.build),
+    parts.loadImages({
+      include: PATHS.assets,
+      options: {
+        name: `assets/[folder]/[name].[hash:8].[ext]`
+      }
+    }),
     parts.minifyCSS({
       options: {
         discardComments: {
@@ -102,8 +108,7 @@ function postBuildCommon() {
       template: HTML_TEMPLATE,
       title: 'Webpack DLL Spike - App',
       filename: 'index.html',
-      inject: 'body', // html-webpack-template needs this to work
-      appMountId: 'core'
+      inject: 'body'
     })
   );
 }

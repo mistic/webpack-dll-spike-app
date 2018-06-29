@@ -164,13 +164,12 @@ exports.loadTSX = function (include) {
 };
 
 exports.indexTemplate = function (options) {
+
   return {
     plugins: [
       new HtmlWebpackPlugin({
-        template: options.template || require('html-webpack-template'),
-        title: options.title,
-        appMountId: options.appMountId,
-        inject: false
+        ...options,
+        template: options.template || require('html-webpack-template')
       })
     ]
   };
