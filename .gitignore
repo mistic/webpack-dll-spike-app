@@ -8,12 +8,12 @@ build/
 webpack-assets.json
 webpack-stats.json
 
-# Npm related
+# Npm Related
 npm-debug.log*
 node_modules/
 
 # Operating System
 *.DS_Store
 
-# Typescript Scss Module Declarations
+# Typescript SCSS Module Declarations
 *.scss.d.ts
