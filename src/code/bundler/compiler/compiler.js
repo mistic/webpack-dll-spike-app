@@ -86,6 +86,7 @@ function optimized() {
     }),
     parts.extractCSS(PATHS.src),
     parts.generateDLLS({
+      context: BASE_DIR,
       entries: [
         {
           name: 'vendor',

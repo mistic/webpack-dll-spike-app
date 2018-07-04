@@ -247,7 +247,7 @@ exports.setFreeVariables = (variables) => {
   };
 };
 
-exports.generateDLLS = ({ entries, output }) => {
+exports.generateDLLS = ({ context, entries, output }) => {
   const finalEntries = {};
   const ignore = ignoreList => key => !ignoreList.includes(key);
 
@@ -257,6 +257,7 @@ exports.generateDLLS = ({ entries, output }) => {
 
   return {
     entry: finalEntries,
+    context,
     output: {
       filename: `dlls/${output.dllName}.dll.js`,
       path: output.path,
