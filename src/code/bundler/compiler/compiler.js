@@ -2,19 +2,7 @@ const path = require('path');
 const merge = require('webpack-merge');
 const parts = require('../parts');
 const BUNDLER_MODES = require('../modes');
-
-const BASE_DIR = path.join(__dirname, '../../../../');
-const PATHS = {
-  src: path.join(BASE_DIR, 'src'),
-  code: path.join(BASE_DIR, 'src/code'),
-  build: path.join(BASE_DIR, 'build'),
-  dlls: path.join(BASE_DIR, 'build/dlls'),
-  assets: path.join(BASE_DIR, 'src/assets'),
-  styles: path.join(BASE_DIR, 'src/styles'),
-  codeEntry: path.join(BASE_DIR, 'src/code/index.tsx'),
-  stylesEntry: path.join(BASE_DIR, 'src/styles/app.scss'),
-  pkg: path.join(BASE_DIR, 'package.json')
-};
+const { PATHS } = require('../constants');
 const PKG_FILE = require(PATHS.pkg);
 
 function common() {
@@ -86,7 +74,7 @@ function optimized() {
     }),
     parts.extractCSS(PATHS.src),
     parts.generateDLLS({
-      context: BASE_DIR,
+      context: PATHS.baseDir,
       entries: [
         {
           name: 'vendor',

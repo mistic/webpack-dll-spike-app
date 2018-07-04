@@ -2,21 +2,7 @@ const path = require('path');
 const merge = require('webpack-merge');
 const parts = require('../parts');
 const BUNDLER_MODES = require('../modes');
-
-const ENABLE_POLLING = process.env.ENABLE_POLLING;
-const BASE_DIR = path.join(__dirname, '../../../../');
-const PATHS = {
-  src: path.join(BASE_DIR, 'src'),
-  code: path.join(BASE_DIR, 'src/code'),
-  build: path.join(BASE_DIR, 'build'),
-  dlls: path.join(BASE_DIR, 'build/dlls'),
-  assets: path.join(BASE_DIR, 'src/assets'),
-  styles: path.join(BASE_DIR, 'src/styles'),
-  codeEntry: path.join(BASE_DIR, 'src/code/index.tsx'),
-  stylesEntry: path.join(BASE_DIR, 'src/styles/app.scss'),
-  pkg: path.join(BASE_DIR, 'package.json')
-};
-const HTML_TEMPLATE = path.join(PATHS.src, '/index.ejs');
+const { PATHS } = require('../constants');
 
 function preBuildCommon() {
   return merge(
@@ -66,8 +52,7 @@ function unoptimizedBuild() {
     }),
     parts.devServer({
       host: process.env.HOST,
-      port: process.env.PORT,
-      poll: ENABLE_POLLING
+      port: process.env.PORT
     })
   );
 }
@@ -106,7 +91,7 @@ function optimizedBuild() {
 function postBuildCommon() {
   return merge(
     parts.indexTemplate({
-      template: HTML_TEMPLATE,
+      template: PATHS.htmlTemplate,
       title: 'Webpack DLL Spike - App',
       filename: 'index.html',
       inject: 'body'
@@ -138,9 +123,9 @@ function testLoaderProd() {
       assets: path.resolve(PATHS.assets)
     }),
     parts.loadTSX(PATHS.codeEntry),
-    parts.loadDLLS(BASE_DIR, PATHS.build),
+    parts.loadDLLS(PATHS.baseDir, PATHS.build),
     parts.indexTemplate({
-      template: HTML_TEMPLATE,
+      template: PATHS.htmlTemplate,
       title: 'Webpack DLL Spike - App',
       filename: 'index.html',
       inject: 'body'

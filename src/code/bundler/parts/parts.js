@@ -276,17 +276,13 @@ exports.generateDLLS = ({ context, entries, output }) => {
 exports.loadDLLS = (context, build) => {
   return {
     plugins: [
-      // automate this
+      // TODO: automate this
       new webpack.DllReferencePlugin({
-        // An absolute path of your application source code
         context,
-        // The path to the generated vendor-manifest file
         manifest: require(build + "/dlls/vendor.json")
       }),
       new webpack.DllReferencePlugin({
-        // An absolute path of your application source code
         context,
-        // The path to the generated vendor-manifest file
         manifest: require(build + "/dlls/app.json")
       }),
     ]
