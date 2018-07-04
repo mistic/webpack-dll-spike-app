@@ -74,8 +74,8 @@ exports.extractCSS = function (paths) {
     plugins: [
       // Output extracted CSS to a file
       new MiniCssExtractPlugin({
-        filename: '[name].[hash].css',
-        chunkFilename: '[id].[hash].css',
+        filename: '[name].[chunkhash:8].css',
+        chunkFilename: '[id].[chunkhash:8].css',
       })
     ]
   };
@@ -165,7 +165,7 @@ exports.loadImages = ({include, exclude, options} = {}) => ({
             options: {
               hash: 'sha512',
               digest: 'hex',
-              name: options.name || '[hash].[ext]'
+              name: options.name || '[hash:8].[ext]'
             }
           },
           {

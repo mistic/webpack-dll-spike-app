@@ -33,7 +33,7 @@ function unoptimized() {
       ],
       output: {
         manifestName: '[name]',
-        dllName: '[name]_[hash:8]',
+        dllName: '[name]_[chunkhash:8]',
         path: PATHS.build,
         publicPath: '/'
       }
@@ -92,7 +92,7 @@ function optimized() {
       ],
       output: {
         manifestName: '[name]',
-        dllName: '[name]_[hash:8]',
+        dllName: '[name]_[chunkhash:8]',
         path: PATHS.build,
         publicPath: '/'
       }
