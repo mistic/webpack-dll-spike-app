@@ -1,11 +1,13 @@
 {
   "name": "webpack-dll-spike-app",
   "version": "0.0.1",
-  "description": "A simple spike using webpack dll to power a core/plugin architecture.",
+  "description": "A simple spike using webpack and DLL plugin to power a core app and a plugin architecture based on static bundles (DLLs).",
   "keywords": [
-    "core/plugin architecture",
+    "webpack",
     "dll",
-    "webpack"
+    "architecture",
+    "plugin",
+    "bundler"
   ],
   "author": "Tiago Costa",
   "license": "MIT",
@@ -14,16 +16,16 @@
     "url": "git+https://github.com/mistic/webpack-dll-spike-app.git"
   },
   "scripts": {
-    "compile": "webpack --config=src/code/bundler --env.bundler.mode=development --env.bundler.type=compiler",
-    "compile:prod": "webpack --config=src/code/bundler --env.bundler.mode=production --env.bundler.type=compiler",
+    "compile": "node ./bundler --mode=development --type=compiler",
+    "compile:prod": "node ./bundler --mode=production --type=compiler",
     "clean": "rm -f -r -d build",
     "lint": "npm run lint:ts && npm run lint:sass",
     "lint:ts": "tslint './src/**/*.ts*' --format stylish --force",
     "lint:sass": "stylelint ./src/**/*.scss",
-    "start": "npm run start:dev",
-    "start:dev": "webpack-dev-server --config=src/code/bundler --env.bundler.mode=development --env.bundler.type=compiler",
-    "start:prod": "npm run compile:prod && node express.js",
-    "load": "webpack --config=src/code/bundler --env.bundler.mode=production --env.bundler.type=loader"
+    "start": "webpack-dev-server --config=bundler --env.mode=development --env.type=compiler --env.export-config",
+    "start:prod": "npm run load:prod && node express.js",
+    "load": "node ./bundler --mode=development --type=loader",
+    "load:prod": "node ./bundler --mode=production --type=loader"
   },
   "devDependencies": {
     "@types/node": "^10.5.0",
@@ -43,6 +45,7 @@
     "html-webpack-plugin": "^3.2.0",
     "html-webpack-template": "^6.2.0",
     "image-webpack-loader": "^4.3.1",
+    "lodash": "^4.17.10",
     "mini-css-extract-plugin": "^0.4.0",
     "node-sass": "^4.9.0",
     "optimize-css-assets-webpack-plugin": "^4.0.3",

@@ -1,5 +1,5 @@
 const path = require('path');
-const BASE_DIR = path.join(__dirname, '../../../');
+const BASE_DIR = path.join(__dirname, '../');
 
 const PATHS = {
   baseDir: BASE_DIR,
