@@ -9,11 +9,12 @@ const PATHS = {
   src: path.join(BASE_DIR, 'src'),
   code: path.join(BASE_DIR, 'src/code'),
   build: path.join(BASE_DIR, 'build'),
+  dlls: path.join(BASE_DIR, 'build/dlls'),
   assets: path.join(BASE_DIR, 'src/assets'),
   styles: path.join(BASE_DIR, 'src/styles'),
   codeEntry: path.join(BASE_DIR, 'src/code/index.tsx'),
   stylesEntry: path.join(BASE_DIR, 'src/styles/app.scss'),
-  records: path.join(BASE_DIR, 'records.json')
+  pkg: path.join(BASE_DIR, 'package.json')
 };
 const HTML_TEMPLATE = path.join(PATHS.src, '/index.ejs');
 
@@ -113,10 +114,46 @@ function postBuildCommon() {
   );
 }
 
+function testLoaderProd() {
+  return merge(
+    {
+      entry: {
+        app: PATHS.codeEntry
+      },
+      mode: 'production',
+      devtool: 'source-map',
+      output: {
+        publicPath: '/',
+        path: PATHS.build,
+        filename: '[name].[chunkhash].js',
+        chunkFilename: '[chunkhash].js'
+      }
+    },
+    parts.ignoreFiles([
+      /scss\.d\.ts$/
+    ]),
+    parts.setAlias({
+      code: path.resolve(PATHS.code),
+      styles: path.resolve(PATHS.styles),
+      assets: path.resolve(PATHS.assets)
+    }),
+    parts.loadTSX(PATHS.codeEntry),
+    parts.loadDLLS(BASE_DIR, PATHS.build),
+    parts.indexTemplate({
+      template: HTML_TEMPLATE,
+      title: 'Webpack DLL Spike - App',
+      filename: 'index.html',
+      inject: 'body'
+    })
+  );
+}
+
 module.exports = (mode) => {
-  if (mode === BUNDLER_MODES.PRODUCTION) {
+  /*if (mode === BUNDLER_MODES.PRODUCTION) {
     return merge(preBuildCommon(), optimizedBuild(), postBuildCommon());
   }
 
-  return merge(preBuildCommon(), unoptimizedBuild(), postBuildCommon());
+  return merge(preBuildCommon(), unoptimizedBuild(), postBuildCommon());*/
+
+  return merge(testLoaderProd());
 };

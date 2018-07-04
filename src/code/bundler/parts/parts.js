@@ -8,11 +8,12 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
 
-exports.clean = function (path) {
+exports.clean = function (paths, exclude = []) {
   return {
     plugins: [
-      new CleanWebpackPlugin([path], {
-        root: process.cwd()
+      new CleanWebpackPlugin(paths, {
+        root: process.cwd(),
+        exclude
       })
     ]
   };
@@ -244,4 +245,49 @@ exports.setFreeVariables = (variables) => {
       new webpack.DefinePlugin(env),
     ],
   };
+};
+
+exports.generateDLLS = ({ entries, output }) => {
+  const finalEntries = {};
+  const ignore = ignoreList => key => !ignoreList.includes(key);
+
+  entries.forEach((entry) => {
+    finalEntries[entry.name] = entry.dependencies.filter(ignore(entry.excludes));
+  });
+
+  return {
+    entry: finalEntries,
+    output: {
+      filename: `dlls/${output.dllName}.dll.js`,
+      path: output.path,
+      publicPath: output.publicPath,
+      library: output.dllName
+    },
+    plugins: [
+      new webpack.DllPlugin({
+        name: output.dllName,
+        path: `${output.path}/dlls/${output.manifestName}.json`
+      })
+    ]
+  }
+};
+
+exports.loadDLLS = (context, build) => {
+  return {
+    plugins: [
+      // automate this
+      new webpack.DllReferencePlugin({
+        // An absolute path of your application source code
+        context,
+        // The path to the generated vendor-manifest file
+        manifest: require(build + "/dlls/vendor.json")
+      }),
+      new webpack.DllReferencePlugin({
+        // An absolute path of your application source code
+        context,
+        // The path to the generated vendor-manifest file
+        manifest: require(build + "/dlls/app.json")
+      }),
+    ]
+  }
 };
