@@ -17,7 +17,7 @@ function common() {
   );
 }
 
-function unoptimized() {
+function unoptimized(config) {
   return merge(
     {
       mode: 'development',
@@ -41,7 +41,7 @@ function unoptimized() {
   );
 }
 
-function optimized() {
+function optimized(config) {
   return merge(
     {
       mode: 'production',
@@ -100,10 +100,10 @@ function optimized() {
   );
 }
 
-module.exports = (mode) => {
+module.exports = (mode, config) => {
   if (mode === BUNDLER_MODES.PRODUCTION) {
-    return merge(common(), optimized())
+    return merge(common(config), optimized(config))
   }
 
-  return merge(common(), unoptimized());
+  return merge(common(config), unoptimized(config));
 };
