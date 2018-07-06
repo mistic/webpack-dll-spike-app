@@ -2,11 +2,11 @@ const compiler = require('./compiler');
 const loader = require('./loader');
 const compilerConfig = require('./compiler/config');
 const loaderConfig = require('./loader/config');
-const optionsValidator = require('./options-validator');
+const paramsValidator = require('./params-validator');
 const BUNDLER_TYPES = require('./types');
 
-module.exports = (options = {}) => {
-  const { mode, type, exportConfig} = optionsValidator(options);
+module.exports = (params = {}) => {
+  const { mode, type, exportConfig} = paramsValidator(params);
 
   console.log(`${exportConfig ? 'Exporting configuration' : 'Starting bundler'} as ${ type } in a ${ mode } environment.`);
 
