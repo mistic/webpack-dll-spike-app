@@ -100,10 +100,10 @@ function optimized(config) {
   );
 }
 
-module.exports = (mode, config) => {
+module.exports = (mode, options) => {
   if (mode === BUNDLER_MODES.PRODUCTION) {
-    return merge(common(config), optimized(config))
+    return merge(common(config), optimized(options))
   }
 
-  return merge(common(config), unoptimized(config));
+  return merge(common(options), unoptimized(options));
 };

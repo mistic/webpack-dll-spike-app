@@ -133,12 +133,12 @@ function testLoaderProd() {
   );
 }
 
-module.exports = (mode) => {
+module.exports = (mode, options) => {
   /*if (mode === BUNDLER_MODES.PRODUCTION) {
-    return merge(preBuildCommon(), optimizedBuild(), postBuildCommon());
+    return merge(preBuildCommon(options), optimizedBuild(options), postBuildCommon(options));
   }
 
-  return merge(preBuildCommon(), unoptimizedBuild(), postBuildCommon());*/
+  return merge(preBuildCommon(options), unoptimizedBuild(options), postBuildCommon(options));*/
 
-  return merge(testLoaderProd());
+  return merge(testLoaderProd(options));
 };
