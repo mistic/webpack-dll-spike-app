@@ -1,8 +1,8 @@
 const path = require('path');
 const merge = require('webpack-merge');
-const parts = require('../parts');
-const BUNDLER_MODES = require('../modes');
-const { PATHS } = require('../constants');
+const parts = require('../../parts');
+const BUNDLER_MODES = require('../../modes');
+const { PATHS } = require('../../constants');
 const PKG_FILE = require(PATHS.pkg);
 
 function common() {
@@ -102,7 +102,7 @@ function optimized(config) {
 
 module.exports = (mode, options) => {
   if (mode === BUNDLER_MODES.PRODUCTION) {
-    return merge(common(config), optimized(options))
+    return merge(common(options), optimized(options))
   }
 
   return merge(common(options), unoptimized(options));

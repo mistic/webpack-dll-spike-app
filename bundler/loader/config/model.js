@@ -1,8 +1,8 @@
 const path = require('path');
 const merge = require('webpack-merge');
-const parts = require('../parts');
-const BUNDLER_MODES = require('../modes');
-const { PATHS } = require('../constants');
+const parts = require('../../parts');
+const BUNDLER_MODES = require('../../modes');
+const { PATHS } = require('../../constants');
 
 function preBuildCommon() {
   return merge(

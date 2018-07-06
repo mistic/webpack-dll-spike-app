@@ -1,6 +1,6 @@
 const webpack = require("webpack");
 
-module.export = function (config) {
+module.exports = function (config) {
   webpack(config, (err, stats) => {
     if (err) {
       console.error(err.stack || err);

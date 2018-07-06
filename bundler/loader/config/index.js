@@ -1,4 +1,4 @@
-const defaultOptions = require('default-options');
+const defaultOptions = require('./default-options');
 const model = require('./model');
 
 module.exports = (mode, options) => {
