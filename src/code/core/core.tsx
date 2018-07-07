@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as Highcharts from "highcharts/highstock";
+import * as Highcharts from "highcharts";
 import { Printer } from "code/sdk";
 import * as coreStyle from "styles/core/core.scss";
 
