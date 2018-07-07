@@ -1,4 +1,5 @@
 const webpack = require("webpack");
+const supportsColor = require('supports-color');
 
 module.exports = function (config) {
   webpack(config, (err, stats) => {
@@ -10,14 +11,11 @@ module.exports = function (config) {
       return;
     }
 
-    const info = stats.toJson();
+    const statsColors = process.stdout.isTTY === true ? supportsColor.stdout : false;
+    const statsString = stats.toString({
+      colors: statsColors
+    });
 
-    if (stats.hasErrors()) {
-      console.error(info.errors);
-    }
-
-    if (stats.hasWarnings()) {
-      console.warn(info.warnings);
-    }
+    process.stdout.write(`${statsString}\n`);
   });
 };
