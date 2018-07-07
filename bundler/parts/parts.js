@@ -266,6 +266,7 @@ exports.generateDLLS = ({ context, entries, output }) => {
     },
     plugins: [
       new webpack.DllPlugin({
+        context,
         name: output.dllName,
         path: `${output.path}/dlls/${output.manifestName}.json`
       })
@@ -275,6 +276,7 @@ exports.generateDLLS = ({ context, entries, output }) => {
 
 exports.loadDLLS = (context, build) => {
   return {
+    context,
     plugins: [
       // TODO: automate this
       new webpack.DllReferencePlugin({
