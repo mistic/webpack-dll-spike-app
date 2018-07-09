@@ -12,7 +12,12 @@ function common(options) {
         path: PATHS.build
       }
     },
-    options.clean === false ? {} : parts.clean(PATHS.build)
+    options.clean === false ? {} : parts.clean(PATHS.build),
+    parts.loadDLLS(PATHS.baseDir, PATHS.build, options.dllDependencies),
+    parts.generateCompilationResultFile({
+      fileName: 'compilation-result.json',
+      seed: options.compilationResultCache
+    })
   );
 }
 
@@ -75,11 +80,6 @@ function optimized(options) {
         path: PATHS.build,
         publicPath: '/'
       }
-    }),
-    parts.loadDLLS(PATHS.baseDir, PATHS.build, options.dllDependencies),
-    parts.generateCompilationResultFile({
-      fileName: 'compilation-result.json',
-      seed: options.compilationResultCache
     })
   );
 }
