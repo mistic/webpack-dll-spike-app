@@ -36,11 +36,18 @@ Run the chosen `type` with the production configurations.
 Run the chosen `type` with the development configurations.
 
 
-##### **--export-config**
-If set returns the default configuration for a chosen `mode` and `type` in order
-to be able to run the bundler configurations for example 
-directly with `webpack-dev-server`. In this case, when used directly with webpack, the
-run options `mode` and `type` should be set inside the `env` var like `--env.mode` and
-`--env.type`.
+##### **--target=**
 
-##### **Defaults: type=production, mode=loader, export-config=false**
+###### **internal**
+Use `type` and `mode` with the default bundler runtime.
+
+###### **external**
+Use `type` and `mode` and export the config in order to be 
+used somewhere else.
+
+###### **webpack-dev-server**
+When the target is `webpack-dev-server`, the options `type` and `mode`
+are always `type=loader` and `mode=development` and they are ran
+on `webpack-dev-server`.
+
+##### **Defaults: type=production, mode=loader, target=internal**
