@@ -22,8 +22,8 @@
     "lint": "npm run lint:ts && npm run lint:sass",
     "lint:ts": "tslint './src/**/*.ts*' --format stylish --force",
     "lint:sass": "stylelint ./src/**/*.scss",
-    "start": "webpack-dev-server --config=bundler --env.mode=development --env.type=compiler --env.export-config",
-    "start:prod": "npm run load:prod && node express.js",
+    "start": "npm run compile && node ./bundler --mode=development --type=loader --target=webpack-dev-server",
+    "start:prod": "npm run compile:prod && npm run load:prod && node express.js",
     "load": "node ./bundler --mode=development --type=loader",
     "load:prod": "node ./bundler --mode=production --type=loader"
   },

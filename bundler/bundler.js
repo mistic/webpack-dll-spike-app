@@ -1,17 +1,23 @@
 const paramsValidator = require('./params-validator');
 const BUNDLER_TYPES = require('./types');
+const BUNDLER_TARGETS = require('./targets');
+const runWebpackDevServer = require('./run-webpack-dev-server');
 
 module.exports = (params = {}) => {
-  const { mode, type, exportConfig} = paramsValidator(params);
+  const { mode, type, target} = paramsValidator(params);
 
-  console.log(`${exportConfig ? 'Exporting configuration' : 'Starting bundler'} as ${ type } in a ${ mode } environment.`);
+  console.log(`Starting bundler as ${ type } in a ${ mode } environment for ${ target } target.`);
 
-  if (exportConfig && type === BUNDLER_TYPES.COMPILER) {
+  if (target === BUNDLER_TARGETS.WEBPACK_DEV_SERVER) {
+    return runWebpackDevServer(mode);
+  }
+
+  if (target === BUNDLER_TARGETS.EXTERNAL && type === BUNDLER_TYPES.COMPILER) {
     const compilerConfig = require('./compiler/config');
     return compilerConfig(mode);
   }
 
-  if (exportConfig) {
+  if (target === BUNDLER_TARGETS.EXTERNAL) {
     const loaderConfig = require('./loader/config');
     return loaderConfig(mode);
   }

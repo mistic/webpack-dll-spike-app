@@ -82,6 +82,11 @@ function unoptimized(options) {
         devtoolModuleFilenameTemplate: 'webpack:///[absolute-resource-path]',
       }
     },
+    parts.devServer({
+      host: 'localhost',
+      port: '8080',
+      contentBase: PATHS.build
+    }),
     parts.lintTSX(PATHS.code),
     parts.lintCSS(),
     parts.loadCSS({

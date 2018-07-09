@@ -25,6 +25,7 @@ exports.clean = function (paths, exclude = []) {
 exports.devServer = function (options) {
   const ret = {
     devServer: {
+      contentBase: options.contentBase || '/',
       historyApiFallback: true,
       hot: true,
       inline: true,
