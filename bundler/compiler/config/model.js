@@ -79,20 +79,7 @@ function optimized(options) {
     parts.loadDLLS(PATHS.baseDir, PATHS.build, options.dllDependencies),
     parts.generateCompilationResultFile({
       fileName: 'compilation-result.json',
-      seed: options.compilationResultCache,
-      filter: (manifestItem) => {
-        const { path } = manifestItem;
-
-        return (/\.dll\.js$/.test(path) || /\.css$/.test(path));
-      },
-      map: (manifestItem) => {
-        return {
-          ...manifestItem,
-          name: /\.js$/.test(manifestItem.name)
-            ? manifestItem.name.replace('.js', '.dll.js')
-            : manifestItem.name
-        }
-      }
+      seed: options.compilationResultCache
     })
   );
 }

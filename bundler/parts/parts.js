@@ -294,7 +294,22 @@ exports.loadDLLS = (context, path, dllReferences = []) => {
 exports.generateCompilationResultFile = (options) => {
   return {
     plugins: [
-      new ManifestPlugin(options)
+      new ManifestPlugin({
+        ...options,
+        filter: (manifestItem) => {
+          const { path } = manifestItem;
+
+          return (/\.dll\.js$/.test(path) || /\.css$/.test(path));
+        },
+        map: (manifestItem) => {
+          return {
+            ...manifestItem,
+            name: /\.js$/.test(manifestItem.name)
+              ? manifestItem.name.replace('.js', '.dll.js')
+              : manifestItem.name
+          }
+        }
+      })
     ]
   }
 };
