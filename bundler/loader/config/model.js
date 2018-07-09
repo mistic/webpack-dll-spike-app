@@ -99,7 +99,7 @@ function postBuildCommon() {
   );
 }
 
-function testLoaderProd() {
+function testLoaderProd(options) {
   return merge(
     {
       entry: {
@@ -123,13 +123,14 @@ function testLoaderProd() {
       assets: path.resolve(PATHS.assets)
     }),
     parts.loadTSX(PATHS.codeEntry),
-    parts.loadDLLS(PATHS.baseDir, PATHS.build),
+    parts.loadDLLS(PATHS.baseDir, PATHS.build, options.dlls),
     parts.indexTemplate({
       template: PATHS.htmlTemplate,
       title: 'Webpack DLL Spike - App',
       filename: 'index.html',
       inject: 'body'
-    })
+    }),
+    parts.addMissingAssetsFromCompilationResultFile(options.compilationResultFile)
   );
 }
 
