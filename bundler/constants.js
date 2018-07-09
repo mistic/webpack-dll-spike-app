@@ -13,7 +13,7 @@ const PATHS = {
   stylesEntry: path.join(BASE_DIR, 'src/styles/app.scss'),
   htmlTemplate: path.join(BASE_DIR, 'src/index.ejs'),
   pkg: path.join(BASE_DIR, 'package.json'),
-  compilationResult: path.join(BASE_DIR, 'build/compilation-result.json'),
+  compilationResult: path.join(BASE_DIR, 'build/compilation-result.json')
 };
 
 module.exports = {
