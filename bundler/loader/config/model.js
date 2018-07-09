@@ -110,8 +110,8 @@ function testLoaderProd(options) {
       output: {
         publicPath: '/',
         path: PATHS.build,
-        filename: '[name].[chunkhash].js',
-        chunkFilename: '[chunkhash].js'
+        filename: '[name].[chunkhash:8].js',
+        chunkFilename: '[chunkhash:8].js'
       }
     },
     parts.ignoreFiles([
