@@ -103,7 +103,7 @@ function testLoaderProd(options) {
   return merge(
     {
       entry: {
-        app: PATHS.codeEntry
+        main: PATHS.codeEntry
       },
       mode: 'production',
       devtool: 'source-map',
