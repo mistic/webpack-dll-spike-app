@@ -7,6 +7,9 @@ const cssnano = require('cssnano');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
+const ManifestPlugin = require('webpack-manifest-plugin');
+const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
+
 
 exports.clean = function (paths, exclude = []) {
   return {
@@ -252,7 +255,7 @@ exports.generateDLLS = ({ context, entries, output }) => {
   const ignore = ignoreList => key => !ignoreList.includes(key);
 
   entries.forEach((entry) => {
-    finalEntries[entry.name] = entry.dependencies.filter(ignore(entry.excludes));
+    finalEntries[entry.name] = entry.include.filter(ignore(entry.exclude));
   });
 
   return {
@@ -274,19 +277,32 @@ exports.generateDLLS = ({ context, entries, output }) => {
   }
 };
 
-exports.loadDLLS = (context, build) => {
+exports.loadDLLS = (context, path, dllReferences = []) => {
+  const finalDllReferences = dllReferences.map((dllReference) => {
+    return new webpack.DllReferencePlugin({
+      context,
+      manifest: require(`${path}/dlls/${dllReference}.json`)
+    });
+  });
+
   return {
     context,
+    plugins: finalDllReferences
+  }
+};
+
+exports.generateCompilationResultFile = (options) => {
+  return {
     plugins: [
-      // TODO: automate this
-      new webpack.DllReferencePlugin({
-        context,
-        manifest: require(build + "/dlls/vendor.json")
-      }),
-      new webpack.DllReferencePlugin({
-        context,
-        manifest: require(build + "/dlls/app.json")
-      }),
+      new ManifestPlugin(options)
+    ]
+  }
+};
+
+exports.addMissingAssetsFromCompilationResultFile = (compilationResultFile) => {
+  return {
+    plugins: [
+      new HtmlWebpackIncludeAssetsPlugin({ publicPath:'', assets: Object.values(compilationResultFile), append: false })
     ]
   }
 };
