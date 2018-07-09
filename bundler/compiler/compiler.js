@@ -5,10 +5,14 @@ const BUNDLER_MODES = require('../modes');
 const { PATHS } = require('../constants');
 const PKG_FILE = require(PATHS.pkg);
 
-module.exports = (mode) => {
+function dllConfigGenerator(mode, dllConfig) {
+  return config.bind(this, mode, dllConfig);
+}
+
+module.exports = async (mode) => {
   const compilationResultCache = {};
 
-  const vendorsDll = config(mode, {
+  const vendorsDll = dllConfigGenerator(mode, {
     dllEntries: [
       {
         name: 'vendor',
@@ -20,7 +24,8 @@ module.exports = (mode) => {
     compilationResultCache
   });
 
-  const appDll = config(mode, {
+  const appDll = dllConfigGenerator(mode, {
+    clean: false,
     dllEntries: [
       {
         name: 'app',
@@ -48,5 +53,7 @@ module.exports = (mode) => {
     ]);
   }
 
-  runWebpack(dllBundles);
+  for (const dllBundle of dllBundles) {
+    await runWebpack(dllBundle())
+  }
 };

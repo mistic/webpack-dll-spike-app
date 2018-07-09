@@ -4,7 +4,7 @@ const parts = require('../../parts');
 const BUNDLER_MODES = require('../../modes');
 const { PATHS } = require('../../constants');
 
-function common() {
+function common(options) {
   return merge(
     {
       output: {
@@ -12,7 +12,7 @@ function common() {
         path: PATHS.build
       }
     },
-    parts.clean(PATHS.build)
+    options.clean === false ? {} : parts.clean(PATHS.build)
   );
 }
 
