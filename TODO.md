@@ -57,7 +57,6 @@
   * Should recompile on changes in development
   
 * **Balance Dev/Prod WorkFlows**
-  * Fix `start:dev` task
   * Complete NPM tasks flow
   
 * **Cache**
