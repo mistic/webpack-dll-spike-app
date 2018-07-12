@@ -62,5 +62,3 @@
 * **Cache**
   *  Build a complete long term cache both for dev and prod in order to 
      trigger compilations only for the changing parts.
-  
- 
