@@ -1,5 +1,6 @@
 # webpack-dll-spike-app
-A simple spike using webpack and dll plugin to power a core app 
+
+:wq:A simple spike using webpack and dll plugin to power a core app 
 and a plugin architecture based on static bundles (DLLs).
 
 ## App
