@@ -52,4 +52,5 @@ are always `type=loader` and `mode=development` and they run
 on `webpack-dev-server`.
 
 ##### **Defaults: type=production, mode=loader, target=internal**
+
 Those are the values used if we don't define any run option.
