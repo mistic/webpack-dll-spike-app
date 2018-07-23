@@ -47,6 +47,7 @@ Use `type` and `mode` and export the config in order to be
 used somewhere else.
 
 ###### **webpack-dev-server**
+
 When the target is `webpack-dev-server`, the options `type` and `mode`
 are always `type=loader` and `mode=development` and they run 
 on `webpack-dev-server`.
