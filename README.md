@@ -43,6 +43,7 @@ Run the chosen `type` with the development configurations.
 Use `type` and `mode` with the default bundler runtime.
 
 ###### **external**
+
 Use `type` and `mode` and export the config in order to be 
 used somewhere else.
 
