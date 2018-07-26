@@ -22,6 +22,7 @@ you can pass to it:
 ##### **--type=**
 
 ###### **compiler**
+
 Run the bundler compiler component.
 
 ###### **loader**
