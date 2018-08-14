@@ -1,6 +1,5 @@
 // Simple express setup to serve 
 // the production bundle
-//
 const express = require('express');
 const app = express();
 const portNumber = 3000;
