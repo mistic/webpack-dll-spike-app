@@ -1,3 +1,4 @@
+// Simple class in order to test
 export class Printer {
   static colorLog(message, color) {
     return console.log("%c" + message, "color:" + color);
