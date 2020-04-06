@@ -1,6 +1,6 @@
 {
   "name": "webpack-dll-spike-app",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A simple spike using webpack and DLL plugin to power a core app and a plugin architecture based on static bundles (DLLs).",
   "keywords": [
     "webpack",
